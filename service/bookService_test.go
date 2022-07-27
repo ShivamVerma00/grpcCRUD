@@ -89,7 +89,7 @@ func TestLmsImp(t *testing.T) {
 	t.Log("Test UpdateBooks PASSED.")
 
 	//Test DeleteBook
-	_, err = client.DeleteBook(ctx, &pb.ReqDeleteBook{Title: )})
+	_, err = client.DeleteBook(ctx, &pb.ReqDeleteBook{Title: BookTitle)})
 	if err != nil {
 		t.Error("Test DeleteBooks FAILED!\nerr: ", err)
 	}
