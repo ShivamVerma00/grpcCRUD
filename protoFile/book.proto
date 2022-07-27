@@ -1,0 +1,90 @@
+syntax = "proto3";
+package protFile;
+
+option go_package = "grpcCRUD/protoFile";
+
+//Book Structure
+message Book{
+    uint64 Id = 1;
+    string BookTitle= 2;
+    string BookAuthor = 3; 
+}
+
+//Create Book
+message ReqCreateBook{
+    Book Book =1;
+}
+
+message ResCreatebook{
+    Book Book = 1;
+}
+
+//GetAll Book
+message ReqGetAllBooks{
+
+}
+
+message ResGetAllBooks{
+    Book Book=1;
+}
+
+
+//Search Book
+message ReqSearchBook{
+    oneof search{
+        string BookTitle = 1;
+        string BookAuthor = 2;
+    }
+}
+
+message ResSearchBook{
+    Book Book = 1;
+}
+
+//Update Book
+message ReqUpdateBook{
+    string Title = 1;
+    Book Book  =2;
+}
+
+message ResUpdateBook{
+    Book Book = 1;
+}
+
+
+// Delete Book
+message ReqDeleteBook{
+    string BookTitle = 1;
+}
+
+message ResDeleteBook{
+    bool Delete = 1;
+}
+
+
+
+// Service
+
+service BookManagementService{
+
+    //Create Book
+    rpc CreateBook(ReqCreateBook) returns (ResCreatebook); //Unary 
+
+
+    //Get All Books 
+    rpc GetAllBooks(ReqGetAllBooks) returns(stream ResGetAllBooks); // Streaming
+
+
+    //Search Book
+    rpc SearchBook(ReqSearchBook) returns(stream ResSearchBook); //Streaming
+
+
+    //Update Book 
+    rpc UpdateBook(ReqUpdateBook) returns(ResUpdateBook); //Unary
+
+
+    //Delete book
+    rpc DeleteBook(ReqDeleteBook) returns(ResDeleteBook);  //Unary
+
+
+}
